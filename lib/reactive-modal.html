@@ -3,17 +3,25 @@
     <div class="modal-dialog {{modalDialogClass}}">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="{{key}}Label">{{title}}</h4>
+          {{#with templateHeader}}
+            {{> ../../templateHeader doc}}
+          {{else}}
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="{{key}}Label">{{title}}</h4>
+          {{/with}}
         </div>
         <div class="modal-body {{modalBodyClass}}">
           <!-- strange: {{> template}} works fine, but with the data context, template is searched inside the data context (the second variable) -->
           {{> ../template doc}}
         </div>
         <div class="modal-footer {{modalFooterClass}}">
-          {{#each arrayify buttons}}
-            <button type="button" id={{button.id}} class="btn {{button.class}} {{name}} reactive-modal-btn" {{disabled}} data-dismiss="{{dismiss}}">{{button.label}}</button>
-          {{/each}}
+          {{#with templateFooter}}
+            {{> ../../templateFooter doc}}
+          {{else}}
+            {{#each arrayify buttons}}
+              <button type="button" id={{button.id}} class="btn {{button.class}} {{name}} reactive-modal-btn" {{disabled}} data-dismiss="{{dismiss}}">{{button.label}}</button>
+            {{/each}}
+          {{/with}}
         </div>
       </div>
     </div>
